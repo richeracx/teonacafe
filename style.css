@@ -164,6 +164,9 @@ h4 {
 .logo-container img {
   height: 80px; /* Refined size */
   transition: var(--transition-smooth);
+  background-color: var(--primary);
+  padding: 10px;
+  border-radius: 20px;
 }
 
 /* Navigation */
@@ -579,8 +582,8 @@ h4 {
 }
 
 .footer-logo {
-  height: 120px;
-  margin-bottom: 30px;
+  height: 160px; /* Increased size */
+  margin: 0 auto 30px auto;
   /* Ensure it looks good on dark bg */
 }
 
