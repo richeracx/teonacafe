@@ -591,12 +591,58 @@ h4 {
     display: block;
   }
   .hero-title {
-    font-size: 4rem;
+    font-size: 3.2rem;
+  }
+  .hero-slogan {
+    font-size: 1rem;
+    letter-spacing: 0.2em;
   }
   .address-box {
-    padding: 40px;
+    padding: 40px 20px;
   }
   .footer-logo {
-    height: 120px;
+    height: 100px;
+  }
+
+  /* Centering menu cards on mobile */
+  .cards-wrapper {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .menu-card {
+    padding: 25px; /* Smaller padding */
+    text-align: center;
+  }
+
+  .card-info h4 {
+    font-size: 1.5rem; /* Smaller font */
+  }
+
+  .card-info p {
+    font-size: 0.95rem;
+  }
+
+  .card-action {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* Centering mobile menu links */
+  .mobile-nav-links {
+    padding: 0;
+    text-align: center;
+  }
+
+  .mobile-nav-links li {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .mobile-nav-links a {
+    font-size: 2.22rem; /* Slightly smaller button-like links */
+    text-align: center;
   }
 }
