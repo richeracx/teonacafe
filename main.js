@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const whatsappCartBtn = document.getElementById("whatsappCartBtn");
 
   // State
-  const phoneNumber = "905513528130";
-  let cart = JSON.parse(localStorage.getItem("vitaCart")) || [];
+  const phoneNumber = "905055613957";
+  let cart = JSON.parse(localStorage.getItem("mantonCart")) || [];
 
   // Initialize
   initializeButtons();
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
-      header.style.boxShadow = "0 10px 30px rgba(43, 88, 37, 0.1)";
+      header.style.boxShadow = "0 10px 30px rgba(26, 59, 52, 0.1)";
     } else {
       header.style.boxShadow = "none";
     }
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function saveCart() {
-    localStorage.setItem("vitaCart", JSON.stringify(cart));
+    localStorage.setItem("mantonCart", JSON.stringify(cart));
   }
 
   function updateWhatsappState() {
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
         '<i class="fab fa-whatsapp"></i> WhatsApp ile Sipariş Ver';
       whatsappCartBtn.style.background = "";
     } else {
-      let message = "Merhaba Vita House Cafe, sipariş vermek istiyorum:\n\n";
+      let message = "Merhaba Manton Cafe, sipariş vermek istiyorum:\n\n";
       cart.forEach((item) => {
         message += `▪ ${item.quantity}x ${item.name} (${(item.price * item.quantity).toFixed(2)} TL)\n`;
       });
@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       whatsappCartBtn.innerHTML = `<i class="fab fa-whatsapp"></i> Siparişi Tamamla (${totalCount})`;
       whatsappCartBtn.style.background =
-        "linear-gradient(135deg, #25D366, #128C7E)";
+        "linear-gradient(135deg, #1a3b34, #2a584d)";
     }
   }
 });
