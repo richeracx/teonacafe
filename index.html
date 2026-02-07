@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Manton Cafe - Restoran & Cafe. Taze lezzetler, huzurlu bir atmosfer. Yemek, kitap ve etkinliklerin buluşma noktası."
+      content="Toena Coffee & Pose - Coffee, Photography & More. Taze lezzetler, profesyonel kareler ve huzurlu bir atmosfer."
     />
-    <title>Manton Cafe | Restoran & Cafe</title>
+    <title>Toena Coffee & Pose | Coffee & Photography</title>
 
-    <link rel="icon" href="manton.png" type="image/png" />
+    <link rel="icon" href="teona.jpg" type="image/jpeg" />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,7 +31,11 @@
     <header class="header">
       <div class="container header-container">
         <div class="logo-container">
-          <img src="manton.png" alt="Manton Cafe Logosu" class="main-logo" />
+          <img
+            src="teona.jpg"
+            alt="Toena Coffee & Pose Logosu"
+            class="main-logo"
+          />
         </div>
         <nav class="navbar">
           <ul class="nav-links">
@@ -73,8 +77,8 @@
     <!-- Hero Section -->
     <section id="hero" class="hero">
       <div class="hero-content">
-        <h1 class="hero-title">MANTON CAFE</h1>
-        <p class="hero-slogan">RESTORAN & CAFE</p>
+        <h1 class="hero-title">TOENA</h1>
+        <p class="hero-slogan">COFFEE & POSE</p>
         <a href="#menu" class="btn btn-primary">Menüyü Keşfet</a>
       </div>
     </section>
@@ -93,13 +97,13 @@
               <div class="menu-card">
                 <div class="card-info">
                   <h4>Ürün 1</h4>
-                  <p>Manton Cafe'ye özel hazırlanan taze bir lezzet.</p>
+                  <p>Toena Coffee'ye özel hazırlanan taze bir lezzet.</p>
                 </div>
                 <div class="card-action">
                   <span class="price">0.00 ₺</span>
                   <button
                     class="btn-fat-turquoise"
-                    onclick="addToCart('Ürün 1', 0.0)"
+                    onclick="addToCart(event, 'Ürün 1', 0.0)"
                   >
                     <i class="fas fa-plus"></i> EKLE
                   </button>
@@ -116,7 +120,7 @@
                   <span class="price">0.00 ₺</span>
                   <button
                     class="btn-fat-turquoise"
-                    onclick="addToCart('Ürün 2', 0.0)"
+                    onclick="addToCart(event, 'Ürün 2', 0.0)"
                   >
                     <i class="fas fa-plus"></i> EKLE
                   </button>
@@ -133,7 +137,7 @@
                   <span class="price">0.00 ₺</span>
                   <button
                     class="btn-fat-turquoise"
-                    onclick="addToCart('Ürün 3', 0.0)"
+                    onclick="addToCart(event, 'Ürün 3', 0.0)"
                   >
                     <i class="fas fa-plus"></i> EKLE
                   </button>
@@ -150,7 +154,7 @@
                   <span class="price">0.00 ₺</span>
                   <button
                     class="btn-fat-turquoise"
-                    onclick="addToCart('Ürün 4', 0.0)"
+                    onclick="addToCart(event, 'Ürün 4', 0.0)"
                   >
                     <i class="fas fa-plus"></i> EKLE
                   </button>
@@ -167,13 +171,13 @@
               <div class="menu-card">
                 <div class="card-info">
                   <h4>Ürün 5</h4>
-                  <p>Vazgeçilmez bir Manton Cafe klasiği.</p>
+                  <p>Vazgeçilmez bir Toena Coffee klasiği.</p>
                 </div>
                 <div class="card-action">
                   <span class="price">0.00 ₺</span>
                   <button
                     class="btn-fat-turquoise"
-                    onclick="addToCart('Ürün 5', 0.0)"
+                    onclick="addToCart(event, 'Ürün 5', 0.0)"
                   >
                     <i class="fas fa-plus"></i> EKLE
                   </button>
@@ -190,7 +194,7 @@
                   <span class="price">0.00 ₺</span>
                   <button
                     class="btn-fat-turquoise"
-                    onclick="addToCart('Ürün 6', 0.0)"
+                    onclick="addToCart(event, 'Ürün 6', 0.0)"
                   >
                     <i class="fas fa-plus"></i> EKLE
                   </button>
@@ -217,41 +221,40 @@
                 display: block;
               "
             ></i>
-            <h3>Manton Cafe</h3>
+            <h3>Toena Coffee & Pose</h3>
             <p>
-              <strong>Telefon:</strong> 0505 561 39 57<br /><br />
-              Atatürk, 34307 Küçükçekmece/İstanbul,<br />
-              Türkiye
+              <strong>Telefon:</strong> 0532 614 13 51<br /><br />
+              Başakşehir, Başakşehir Cd. No:34/C,<br />
+              34480 Başakşehir/İstanbul
             </p>
 
             <div class="contact-buttons">
               <a
-                href="https://www.google.com/maps/place/Manton+Cafe/@41.0439901,28.7577715,15z/data=!4m11!1m3!2m2!1scafe!6e5!3m6!1s0x14caa5eea076e5f7:0xd8044cf6d2da716!8m2!3d41.0439901!4d28.7768259!15sCgRjYWZlWgYiBGNhZmWSAQRjYWZlmgEjQ2haRFNVaE5NRzluUzBWSlEwRm5TVVI0ZVdaRVptUjNFQUXgAQD6AQQIABBB!16s%2Fg%2F11fjzy2qlf?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoKLDEwMDc5MjA2OUgBUAM%3D"
+                href="https://www.google.com/maps/place/Toena+Coffee+%26+Pose/@41.1508378,26.4792191,8z/data=!4m10!1m2!2m1!1steona+coffee!3m6!1s0x14cab330273fcdd7:0x986b9589464fc9f!8m2!3d41.1508378!4d28.9181839!15sCgx0ZW9uYSBjb2ZmZWVaDiIMdGVvbmEgY29mZmVlkgELY29mZmVlX3Nob3CaASRDaGREU1VoTk1HOW5TMFZKUTBGblRVUkpOWEZFVW01blJSQULgAQD6AQQIOxAu!16s%2Fg%2F11ld8q349k?entry=ttu&g_ep=EgoyMDI2MDIwNC4wIKXMDSoKLDEwMDc5MjA2OUgBUAM%3D"
                 target="_blank"
                 class="btn btn-map"
               >
                 <i class="fas fa-route"></i> Haritada Gör
               </a>
               <a
-                href="https://www.instagram.com/manton_cafe/"
+                href="https://www.instagram.com/toenacoffee/?hl=tr"
                 target="_blank"
                 class="btn btn-instagram"
               >
                 <i class="fab fa-instagram"></i> Instagram'da Takip Et
               </a>
-              <!-- This is the MAIN cart button now -->
               <a
                 href="javascript:void(0)"
                 class="btn btn-whatsapp"
                 id="whatsappCartBtn"
               >
-                <i class="fab fa-whatsapp"></i> WhatsApp ile Sipariş Ver
+                <i class="fab fa-whatsapp"></i> WhatsApp ile İletişim Kur
               </a>
             </div>
           </div>
           <div class="map-box">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.660144598144!2d28.7577715!3d41.0439901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa5eea076e5f7%3A0xd8044cf6d2da716!2sManton%20Cafe!5e0!3m2!1str!2str!4v1717580000000!5m2!1str!2str"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.382442478542!2d28.915609!3d41.1508378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab330273fcdd7%3A0x986b9589464fc9f!2sToena%20Coffee%20%26%20Pose!5e0!3m2!1str!2str!4v1738946000000!5m2!1str!2str"
               width="100%"
               height="100%"
               style="border: 0"
@@ -267,10 +270,28 @@
     <footer class="footer">
       <div class="container footer-content">
         <div class="footer-brand">
-          <img src="logo2.png" alt="Manton Cafe" class="footer-logo" />
-          <span class="web-service-text">Manton Cafe | Restoran & Cafe</span>
+          <img src="logo2.png" alt="Toena Coffee & Pose" class="footer-logo" />
+          <span class="web-service-text"
+            >Toena Coffee & Pose | Coffee & Photography</span
+          >
         </div>
-        <p class="copyright">&copy; 2026 Manton Cafe. Tüm hakları saklıdır.</p>
+        <p class="copyright">
+          &copy; 2026 Toena Coffee & Pose. Tüm hakları saklıdır. |
+          <a
+            href="javascript:void(0)"
+            onclick="
+              localStorage.removeItem('toenaCart');
+              location.reload();
+            "
+            style="
+              color: var(--secondary);
+              opacity: 0.8;
+              font-size: 0.8rem;
+              text-decoration: underline;
+            "
+            >Sepeti Sıfırla (Reset)</a
+          >
+        </p>
       </div>
     </footer>
 

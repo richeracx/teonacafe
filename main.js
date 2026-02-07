@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const whatsappCartBtn = document.getElementById("whatsappCartBtn");
 
   // State
-  const phoneNumber = "905055613957";
-  let cart = JSON.parse(localStorage.getItem("mantonCart")) || [];
+  const phoneNumber = "905326141351";
+  let cart = JSON.parse(localStorage.getItem("toenaCart")) || [];
 
   // Initialize
   initializeButtons();
@@ -37,118 +37,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
-      header.style.boxShadow = "0 10px 30px rgba(26, 59, 52, 0.1)";
+      header.classList.add("scrolled");
     } else {
-      header.style.boxShadow = "none";
+      header.classList.remove("scrolled");
     }
   });
 
-  // --- Logic ---
-
-  // 1. Initialize Buttons based on current Cart
-  function initializeButtons() {
-    const productTitles = document.querySelectorAll(".menu-card h4");
-    productTitles.forEach((title) => {
-      const name = title.innerText;
-      const cardAction = title
-        .closest(".menu-card")
-        .querySelector(".card-action");
-      // Check if item is in cart
-      const item = cart.find((i) => i.name === name);
-      if (item) {
-        // If in cart, render Quantity Control
-        renderQtyControl(cardAction, name, item.price, item.quantity);
-      }
-    });
-  }
-
-  // 2. Global Add To Cart (triggered by the static EKLE button)
-  window.addToCart = (name, price) => {
-    const item = cart.find((i) => i.name === name);
-    if (!item) {
-      cart.push({ name, price, quantity: 1 });
-    } else {
-      item.quantity += 1;
-    }
-    saveCart();
-    updateWhatsappState();
-
-    // Switch button to quantity control
-    const btn = event.currentTarget; // The clicked button
-    const parent = btn.parentElement;
-    renderQtyControl(parent, name, price, 1);
-  };
-
-  // 3. Render Quantity Control
-  function renderQtyControl(container, name, price, quantity) {
-    // Clear existing button or control
-    const existingBtn = container.querySelector(".btn-fat-turquoise");
-    if (existingBtn) existingBtn.style.display = "none";
-
-    // Check if control already exists
-    let control = container.querySelector(".qty-control");
-
-    if (!control) {
-      control = document.createElement("div");
-      control.className = "qty-control";
-      container.appendChild(control);
-    }
-
-    control.innerHTML = `
-            <button onclick="updateItemQty('${name}', ${price}, -1)"><i class="fas fa-minus" style="font-size:0.8rem"></i></button>
-            <span>${quantity}</span>
-            <button onclick="updateItemQty('${name}', ${price}, 1)"><i class="fas fa-plus" style="font-size:0.8rem"></i></button>
-        `;
-  }
-
-  // 4. Update Quantity (triggered by +/-)
-  window.updateItemQty = (name, price, change) => {
-    const itemIndex = cart.findIndex((i) => i.name === name);
-    if (itemIndex === -1) return;
-
-    cart[itemIndex].quantity += change;
-
-    const card = findCardByName(name);
-    if (!card) return; // Should not happen
-
-    const container = card.querySelector(".card-action");
-
-    if (cart[itemIndex].quantity <= 0) {
-      // Remove item
-      cart.splice(itemIndex, 1);
-      // Revert UI to 'EKLE' button
-      const control = container.querySelector(".qty-control");
-      if (control) control.remove();
-
-      const btn = container.querySelector(".btn-fat-turquoise");
-      if (btn) btn.style.display = "inline-flex";
-    } else {
-      // Update UI Number
-      const control = container.querySelector(".qty-control");
-      if (control) {
-        control.querySelector("span").innerText = cart[itemIndex].quantity;
-      }
-    }
-
-    saveCart();
-    updateWhatsappState();
-  };
-
-  function findCardByName(name) {
-    // Helper to find DOM element
-    const titles = document.querySelectorAll(".menu-card h4");
-    for (let t of titles) {
-      if (t.innerText === name) return t.closest(".menu-card");
-    }
-    return null;
-  }
+  // --- Revised Logic (State Driven) ---
 
   function saveCart() {
-    localStorage.setItem("mantonCart", JSON.stringify(cart));
+    localStorage.setItem("toenaCart", JSON.stringify(cart));
   }
 
   function updateWhatsappState() {
     if (!whatsappCartBtn) return;
+
+    // Purge any corrupted items with 0 or negative quantity
+    cart = cart.filter((item) => item.quantity > 0);
 
     let totalAmount = 0;
     let totalCount = 0;
@@ -158,24 +63,119 @@ document.addEventListener("DOMContentLoaded", () => {
       totalCount += item.quantity;
     });
 
+    // Final safety check
+    totalCount = Math.max(0, totalCount);
+
     if (cart.length === 0) {
       whatsappCartBtn.href = `https://wa.me/${phoneNumber}`;
       whatsappCartBtn.innerHTML =
-        '<i class="fab fa-whatsapp"></i> WhatsApp ile Sipariş Ver';
+        '<i class="fab fa-whatsapp"></i> WhatsApp ile İletişim Kur';
       whatsappCartBtn.style.background = "";
     } else {
-      let message = "Merhaba Manton Cafe, sipariş vermek istiyorum:\n\n";
+      let message =
+        "Merhaba Toena Coffee & Pose, sipariş vermek istiyorum:\n\n";
       cart.forEach((item) => {
         message += `▪ ${item.quantity}x ${item.name} (${(item.price * item.quantity).toFixed(2)} TL)\n`;
       });
       message += `\n*Toplam Tutar: ${totalAmount.toFixed(2)} TL*`;
-
-      const encodedMessage = encodeURIComponent(message);
-      whatsappCartBtn.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
+      whatsappCartBtn.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+        message,
+      )}`;
       whatsappCartBtn.innerHTML = `<i class="fab fa-whatsapp"></i> Siparişi Tamamla (${totalCount})`;
       whatsappCartBtn.style.background =
-        "linear-gradient(135deg, #1a3b34, #2a584d)";
+        "linear-gradient(135deg, #166d82, #072a31)";
     }
   }
+
+  function initializeButtons() {
+    document.querySelectorAll(".menu-card").forEach((card) => {
+      const name = card.querySelector("h4").innerText.trim();
+      const item = cart.find((i) => i.name.trim() === name);
+      const actionContainer = card.querySelector(".card-action");
+      const priceText = actionContainer.querySelector(".price").innerText;
+      const price = parseFloat(priceText.replace(/[^\d.]/g, "")) || 0;
+
+      if (item) {
+        renderQtyControl(actionContainer, name, price, item.quantity);
+      }
+    });
+    updateWhatsappState();
+  }
+
+  function renderQtyControl(container, name, price, quantity) {
+    const existingBtn = container.querySelector(".btn-fat-turquoise");
+    if (existingBtn) existingBtn.style.display = "none";
+
+    let control = container.querySelector(".qty-control");
+    if (!control) {
+      control = document.createElement("div");
+      control.className = "qty-control";
+      container.appendChild(control);
+    }
+
+    control.innerHTML = `
+      <button class="qty-btn-minus" data-name="${name}" data-price="${price}"><i class="fas fa-minus"></i></button>
+      <span>${quantity}</span>
+      <button class="qty-btn-plus" data-name="${name}" data-price="${price}"><i class="fas fa-plus"></i></button>
+    `;
+  }
+
+  // Use Event Delegation for everything to avoid selector issues
+  document.addEventListener("click", (e) => {
+    // 1. Add Button
+    const addBtn = e.target.closest(".btn-fat-turquoise");
+    if (addBtn) {
+      const card = addBtn.closest(".menu-card");
+      const name = card.querySelector("h4").innerText.trim();
+      const priceText = card.querySelector(".price").innerText;
+      const price = parseFloat(priceText.replace(/[^\d.]/g, "")) || 0;
+
+      const item = cart.find((i) => i.name === name);
+      if (!item) {
+        cart.push({ name, price, quantity: 1 });
+      }
+      saveCart();
+      renderQtyControl(addBtn.parentElement, name, price, 1);
+      updateWhatsappState();
+      return;
+    }
+
+    // 2. Plus Button
+    const plusBtn = e.target.closest(".qty-btn-plus");
+    if (plusBtn) {
+      const name = plusBtn.dataset.name;
+      const item = cart.find((i) => i.name === name);
+      if (item) {
+        item.quantity++;
+        plusBtn.parentElement.querySelector("span").innerText = item.quantity;
+        saveCart();
+        updateWhatsappState();
+      }
+      return;
+    }
+
+    // 3. Minus Button
+    const minusBtn = e.target.closest(".qty-btn-minus");
+    if (minusBtn) {
+      const name = minusBtn.dataset.name;
+      const itemIndex = cart.findIndex((i) => i.name === name);
+      if (itemIndex !== -1) {
+        cart[itemIndex].quantity--;
+        const newQty = cart[itemIndex].quantity;
+
+        if (newQty <= 0) {
+          cart.splice(itemIndex, 1);
+          const container = minusBtn.parentElement.parentElement;
+          minusBtn.parentElement.remove();
+          const addBtn = container.querySelector(".btn-fat-turquoise");
+          if (addBtn) addBtn.style.display = "inline-flex";
+        } else {
+          minusBtn.parentElement.querySelector("span").innerText = newQty;
+        }
+        saveCart();
+        updateWhatsappState();
+      }
+      return;
+    }
+  });
 });
