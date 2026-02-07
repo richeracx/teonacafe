@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const whatsappCartBtn = document.getElementById("whatsappCartBtn");
 
   // State
-  const phoneNumber = "905320695937";
-  let cart = JSON.parse(localStorage.getItem("coffeeCart")) || [];
+  const phoneNumber = "905513528130";
+  let cart = JSON.parse(localStorage.getItem("vitaCart")) || [];
 
   // Initialize
   initializeButtons();
@@ -37,9 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
-      header.style.boxShadow = "0 6px 20px rgba(0, 0, 0, 0.2)";
+      header.style.boxShadow = "0 10px 30px rgba(43, 88, 37, 0.1)";
     } else {
-      header.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.1)";
+      header.style.boxShadow = "none";
     }
   });
 
@@ -58,13 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (item) {
         // If in cart, render Quantity Control
         renderQtyControl(cardAction, name, item.price, item.quantity);
-      } else {
-        // Ensure default button exists
-        const existingBtn = cardAction.querySelector(".btn-fat-turquoise");
-        if (!existingBtn && !cardAction.querySelector(".qty-control")) {
-          // Should already be there statically, but just in case logic needs reset
-          // (handled by HTML mostly)
-        }
       }
     });
   }
@@ -151,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function saveCart() {
-    localStorage.setItem("coffeeCart", JSON.stringify(cart));
+    localStorage.setItem("vitaCart", JSON.stringify(cart));
   }
 
   function updateWhatsappState() {
@@ -167,10 +160,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (cart.length === 0) {
       whatsappCartBtn.href = `https://wa.me/${phoneNumber}`;
-      whatsappCartBtn.innerHTML = '<i class="fab fa-whatsapp"></i> WhatsApp';
+      whatsappCartBtn.innerHTML =
+        '<i class="fab fa-whatsapp"></i> WhatsApp ile Sipariş Ver';
       whatsappCartBtn.style.background = "";
     } else {
-      let message = "Merhaba Mandel Coffee, sipariş vermek istiyorum:\n\n";
+      let message = "Merhaba Vita House Cafe, sipariş vermek istiyorum:\n\n";
       cart.forEach((item) => {
         message += `▪ ${item.quantity}x ${item.name} (${(item.price * item.quantity).toFixed(2)} TL)\n`;
       });
@@ -179,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const encodedMessage = encodeURIComponent(message);
       whatsappCartBtn.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-      whatsappCartBtn.innerHTML = `<i class="fab fa-whatsapp"></i> Siparişi Onayla (${totalCount})`;
+      whatsappCartBtn.innerHTML = `<i class="fab fa-whatsapp"></i> Siparişi Tamamla (${totalCount})`;
       whatsappCartBtn.style.background =
         "linear-gradient(135deg, #25D366, #128C7E)";
     }
